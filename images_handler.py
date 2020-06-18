@@ -35,13 +35,16 @@ class GeneDataset():
                     print("Src name: ", src_name)
                     src_format = src_name.split('.')[-1]
                     print("Src format is {} format".format(src_format))
-                    if src_format is not "jpg":
+
+                    if src_format != "jpg":
                         img = cv2.imread(src_name)
                         new_name = src_name.replace(src_format, "jpg")
                         print("New name: ", new_name)
                         cv2.imwrite(new_name, img)
                         self.lines.append(new_name + ' ' + str(label) + '\n')
-                        # os.remove(src_name)
+                        os.remove(src_name)
+                    else:
+                        self.lines.append(src_name + ' ' + str(label) + '\n')
             label = label + 1
 
     def split_train_val(self, train_file, test_file):
